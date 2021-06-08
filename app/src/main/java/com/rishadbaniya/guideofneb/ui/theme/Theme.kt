@@ -1,44 +1,87 @@
 package com.rishadbaniya.guideofneb.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+class GuideOfNEBColors(
+    background : Color,
+    onBackground : Color,
+){
+    var background by mutableStateOf(background)
+        private set
+    var onBackground by mutableStateOf(onBackground)
+        private set
+    fun update(other : GuideOfNEBColors){
+        background = other.background
+        onBackground = other.onBackground
+    }
+}
+
+val localGuideOfNEBColors = compositionLocalOf<GuideOfNEBColors>{ error("Sorry! No any GuideOfNEBColors was provided")}
+
+object GuideOfNEBTheme{
+    val colors : GuideOfNEBColors
+    @Composable
+    get() = localGuideOfNEBColors.current
+}
+
+private val darkThemeColors = GuideOfNEBColors(
+    background = Color.Black,
+    onBackground = Color.White
 )
 
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
+private val lightThemeColors = GuideOfNEBColors(
     background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    onBackground = Color.Black
 )
 
 @Composable
-fun GuideOfNEBTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+fun GuideOfNEBTheme(
+    isDark: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+){
+
+    val colors = if (isDark) darkThemeColors else lightThemeColors;
+    ProvideGuideOfNEBColors(colors = colors) {
+        MaterialTheme(
+            colors = debugMaterialColors(isDark = isDark),
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
 }
+
+@Composable
+fun ProvideGuideOfNEBColors(
+    colors : GuideOfNEBColors,
+    content: @Composable () -> Unit
+){
+    val colorPalette = remember { colors };
+    colorPalette.update(colors)
+    CompositionLocalProvider(localGuideOfNEBColors provides colorPalette, content = content)
+}
+
+@Composable
+fun debugMaterialColors(
+    isDark : Boolean,
+    debugColor : Color = Color.Gray
+) = Colors(
+    primary = debugColor,
+    onPrimary = debugColor,
+    primaryVariant = debugColor,
+    secondary = debugColor,
+    secondaryVariant = debugColor,
+    background = debugColor,
+    surface = debugColor,
+    onSurface = debugColor,
+    error = debugColor,
+    onSecondary = debugColor,
+    onBackground = debugColor,
+    onError= debugColor,
+    isLight= !isDark
+)

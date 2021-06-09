@@ -61,6 +61,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.0-beta01")
     implementation("com.google.dagger:hilt-android:2.36")
     kapt("com.google.dagger:hilt-android-compiler:2.36")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha02")
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")

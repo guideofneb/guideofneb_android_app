@@ -13,7 +13,7 @@ val BOTTOM_NAVIGATION_BAR_HEIGHT = 48.dp
 class BottomNavigationItem(val label : Int, val icon : Int, val route : String);
 
 @Composable
-fun BottomNavigationOrBannerAd(
+fun BottomNavigationBar(
     items : List<BottomNavigationItem>,
     navController : NavHostController,
     showBannerAd : Boolean

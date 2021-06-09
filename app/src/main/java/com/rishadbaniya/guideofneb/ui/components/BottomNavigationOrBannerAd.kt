@@ -1,9 +1,6 @@
 package com.rishadbaniya.guideofneb.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,15 +8,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
-class BottomNavigationItem(val label : Int, val icon : Int, val route : Int);
+val BOTTOM_NAVIGATION_BAR_HEIGHT = 48.dp
+
+class BottomNavigationItem(val label : Int, val icon : Int, val route : String);
+
+@Composable
+fun BottomNavigationOrBannerAd(
+    items : List<BottomNavigationItem>,
+    navController : NavHostController,
+    showBannerAd : Boolean
+){
+    Box(modifier = Modifier.fillMaxWidth().height(BOTTOM_NAVIGATION_BAR_HEIGHT)){
+        if(showBannerAd){
+            BannerAd()
+        }else{
+            BottomNavigation(items = items , navController = navController)
+        }
+    }
+}
+
+@Composable
+fun BannerAd(){
+
+}
+
 
 @Composable
 fun BottomNavigation(
-    items : List<BottomNavigationItem>,
-    navController : NavHostController
+    items: List<BottomNavigationItem>,
+    navController: NavHostController
 ){
     Row(modifier = Modifier
-        .height(48.dp)
         .fillMaxWidth()){
         items.forEach{ item ->
             BottomNavigationItem(
@@ -30,7 +49,6 @@ fun BottomNavigation(
             )
         }
     }
-
 }
 
 @Composable
@@ -68,3 +86,4 @@ fun BottomNavigationLabel(
         contentDescription = null
     )
 }
+

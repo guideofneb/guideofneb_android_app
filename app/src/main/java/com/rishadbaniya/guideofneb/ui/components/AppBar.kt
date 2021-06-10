@@ -72,10 +72,6 @@ private fun LOGO_AND_TEXT (){
     }
 }
 
-
-
-
-
 @Composable
 private fun HAMBURGER_DRAWER_BUTTON(
     onClick : () -> Unit

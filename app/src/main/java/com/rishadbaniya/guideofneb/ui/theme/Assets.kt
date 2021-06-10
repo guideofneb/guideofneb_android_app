@@ -23,3 +23,5 @@ const val STACK_FILL = R.drawable.stack_fill
 const val APP_LOGO = R.drawable.logo
 
 const val HAMBURGER_MENU = R.drawable.menu_fill
+const val ADD = R.drawable.add
+const val KEY = R.drawable.key

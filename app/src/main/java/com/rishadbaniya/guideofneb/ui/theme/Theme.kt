@@ -39,7 +39,7 @@ private val darkThemeColors = GuideOfNEBColors(
 )
 
 private val lightThemeColors = GuideOfNEBColors(
-    background = Color.Gray,
+    background = Color.White,
     onBackground = Color.Black,
     isDark = false
 )

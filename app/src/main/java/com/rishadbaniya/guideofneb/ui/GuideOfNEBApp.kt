@@ -11,9 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rishadbaniya.guideofneb.ui.components.BottomNavigationItem
 import com.rishadbaniya.guideofneb.ui.components.BottomNavigationBar
 import com.rishadbaniya.guideofneb.R;
-
-
-
+import com.rishadbaniya.guideofneb.ui.components.AppBar
 
 @Composable
 fun GuideofNEBApp(){
@@ -57,8 +55,4 @@ fun Body(
 }
 
 
-@Composable
-fun AppBar(){
-Text("YO")
-}
 

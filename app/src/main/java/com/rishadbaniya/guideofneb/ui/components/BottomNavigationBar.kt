@@ -71,7 +71,7 @@ fun BottomNavigationBar(
 }
 
 @Composable
-private fun HoriziontalDivider(){
+fun HoriziontalDivider(){
     Divider(thickness = (1.2).dp,color = GuideOfNEBTheme.colors.horizontalDividier)
 }
 

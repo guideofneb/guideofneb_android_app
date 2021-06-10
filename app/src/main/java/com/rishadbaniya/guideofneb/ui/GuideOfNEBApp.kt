@@ -31,25 +31,18 @@ fun Body(
    modifier : Modifier,
    navController : NavHostController
 ){
-    Text("BODY", modifier = modifier)
     NavHost(navController = navController, startDestination = "home", modifier = modifier){
         composable("home"){
-            Text("YO")
         }
         composable("notes"){
-            Text("YO")
         }
         composable("solutions"){
-            Text("YO")
         }
         composable("tools"){
-            Text("YO")
         }
         composable("news"){
-            Text("YO")
         }
         composable("library"){
-            Text("YO")
         }
     }
 }

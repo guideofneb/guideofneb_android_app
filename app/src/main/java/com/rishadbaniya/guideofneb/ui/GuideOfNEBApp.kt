@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rishadbaniya.guideofneb.ui.components.BottomNavigationItem
 import com.rishadbaniya.guideofneb.ui.components.BottomNavigationBar
 import com.rishadbaniya.guideofneb.R;
-import com.rishadbaniya.guideofneb.ui.components.AppBar
+import com.rishadbaniya.guideofneb.ui.components.APP_BAR as AppBar
 
 @Composable
 fun GuideofNEBApp(){

@@ -29,7 +29,7 @@ import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBColors
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
-private val BOTTOM_NAVIGATION_BAR_HEIGHT = 48.dp
+private val BOTTOM_NAVIGATION_BAR_HEIGHT = 50.dp
 
 private val BOTTOM_NAVIGATION_LABEL_FONT_SIZE = (2.2).em ;
 

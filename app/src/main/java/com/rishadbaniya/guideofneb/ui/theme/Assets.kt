@@ -14,3 +14,4 @@ const val NEWS_LINE = R.drawable.newspaper_line
 const val NEWS_FILL = R.drawable.newspaper_fill
 const val STACK_LINE = R.drawable.stack_line
 const val STACK_FILL = R.drawable.stack_fill
+const val APP_LOGO = R.drawable.logo

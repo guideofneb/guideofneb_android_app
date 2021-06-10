@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 class GuideOfNEBColors(
     background : Color,
     onBackground : Color,
+    horizontalDividier : Color,
     isDark: Boolean
 ){
     var background by mutableStateOf(background)
@@ -16,11 +17,14 @@ class GuideOfNEBColors(
     var onBackground by mutableStateOf(onBackground)
         private set
     var isDark by mutableStateOf(isDark)
-
+        private set
+    var horizontalDividier by mutableStateOf(horizontalDividier)
+        private set
     fun update(other : GuideOfNEBColors){
         background = other.background
         onBackground = other.onBackground
         isDark = other.isDark
+        horizontalDividier = other.horizontalDividier
     }
 }
 
@@ -33,14 +37,16 @@ object GuideOfNEBTheme{
 }
 
 private val darkThemeColors = GuideOfNEBColors(
-    background = Color.Black,
+    background = Color(0xFF212121),
     onBackground = Color.White,
+    horizontalDividier = Color(0xFF3B3B3B),
     isDark = true
 )
 
 private val lightThemeColors = GuideOfNEBColors(
     background = Color.White,
     onBackground = Color.Black,
+    horizontalDividier = Color(0xFFE1E1E1),
     isDark = false
 )
 

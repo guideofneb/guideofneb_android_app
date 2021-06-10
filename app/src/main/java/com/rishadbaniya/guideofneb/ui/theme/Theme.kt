@@ -5,11 +5,13 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class GuideOfNEBColors(
     background : Color,
     onBackground : Color,
     horizontalDividier : Color,
+    statusBar : Color,
     isDark: Boolean
 ){
     var background by mutableStateOf(background)
@@ -19,6 +21,8 @@ class GuideOfNEBColors(
     var isDark by mutableStateOf(isDark)
         private set
     var horizontalDividier by mutableStateOf(horizontalDividier)
+        private set
+    var statusBar by mutableStateOf(statusBar)
         private set
     fun update(other : GuideOfNEBColors){
         background = other.background
@@ -40,6 +44,7 @@ private val darkThemeColors = GuideOfNEBColors(
     background = Color(0xFF212121),
     onBackground = Color.White,
     horizontalDividier = Color(0xFF3B3B3B),
+    statusBar = Color(0xFF131313),
     isDark = true
 )
 
@@ -47,6 +52,7 @@ private val lightThemeColors = GuideOfNEBColors(
     background = Color.White,
     onBackground = Color.Black,
     horizontalDividier = Color(0xFFE1E1E1),
+    statusBar = Color(0xFFCCCCCC),
     isDark = false
 )
 
@@ -57,6 +63,12 @@ fun GuideOfNEBTheme(
 ){
     val colors = if (isDark) darkThemeColors else lightThemeColors;
     ProvideGuideOfNEBColors(colors = colors) {
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setStatusBarColor(
+            color = GuideOfNEBTheme.colors.statusBar,
+            darkIcons = !GuideOfNEBTheme.colors.isDark
+        )
+
         MaterialTheme(
             colors = debugMaterialColors(isDark = isDark),
             typography = Typography,

@@ -24,8 +24,6 @@ import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
 private val APP_BAR_HEIGHT = 48.dp
 
-
-
 @Composable
 fun APP_BAR(){
     Column {
@@ -67,7 +65,6 @@ private fun LOGO_AND_TEXT (){
             fontWeight = FontWeight.Bold,
             fontFamily = SOURCE_SAN_PRO,
             color = GuideOfNEBTheme.colors.onBackground
-
         )
     }
 }

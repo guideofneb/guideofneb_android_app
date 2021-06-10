@@ -1,5 +1,6 @@
 package com.rishadbaniya.guideofneb.ui.screens.tools
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,11 +26,15 @@ import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
 private val KEYS_BAR_HEIGHT = 48.dp;
 
+private enum class KEY_STATUS {
+   AVAILAIBLE,
+   TO_SPEND
+}
+
 @Composable
 fun TOOLS(){
    Column() {
       TOOLS_KEYS_BAR()
-
       Column(
       ) {
       }
@@ -48,7 +54,8 @@ private fun TOOLS_KEYS_BAR(){
          horizontalArrangement = Arrangement.SpaceBetween
       ){
          NO_OF_KEYS(
-            noOfKeys = 10
+            noOfKeys = 10,
+            keyStatus = KEY_STATUS.AVAILAIBLE
          )
          ADD_KEYS_BUTTON()
       }
@@ -61,6 +68,7 @@ private fun TOOLS_KEYS_BAR(){
 private fun ADD_KEYS_BUTTON(){
    Icon(
       painter = painterResource(ADD),
+      tint = GuideOfNEBTheme.colors.onBackground,
       contentDescription = null,
       modifier = Modifier
          .size(48.dp)
@@ -75,28 +83,39 @@ private fun ADD_KEYS_BUTTON(){
    )
 }
 
+
+
+
 @Composable
 private fun NO_OF_KEYS(
-   noOfKeys : Int
+   noOfKeys : Int,
+   keyStatus: KEY_STATUS
 ){
+   val keyBackground = if(keyStatus == KEY_STATUS.AVAILAIBLE){
+      GuideOfNEBTheme.colors.keyAvailaible
+   }else{
+      GuideOfNEBTheme.colors.keyToSpend
+   }
+
    Row (
       modifier = Modifier
-         .padding(horizontal = 2.dp)
-         .clip(RoundedCornerShape(10)),
+         .clip(RoundedCornerShape(20))
+         .background(keyBackground)
+         .padding(horizontal = 6.dp,vertical = 4.dp),
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Center,
    ){
       Icon(
          painter = painterResource(id = KEY),
          contentDescription = null,
-         tint = GuideOfNEBTheme.colors.onBackground
+         tint = GuideOfNEBTheme.colors.onKey
       )
       Text(
          text = " : $noOfKeys",
          fontFamily = SOURCE_SAN_PRO,
          fontWeight = FontWeight.Bold,
          fontSize = (3.8).em,
-         color = GuideOfNEBTheme.colors.onBackground
+         color = GuideOfNEBTheme.colors.onKey
       )
    }
 }

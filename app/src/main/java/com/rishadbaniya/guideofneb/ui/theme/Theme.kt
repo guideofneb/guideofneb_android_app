@@ -11,6 +11,9 @@ class GuideOfNEBColors(
     background : Color,
     onBackground : Color,
     horizontalDividier : Color,
+    keyAvailaible : Color = Color(0xFF3DA23A),
+    keyToSpend : Color = Color(0xFFA23A39),
+    onKey : Color = Color.White,
     statusBar : Color,
     isDark: Boolean
 ){
@@ -23,6 +26,12 @@ class GuideOfNEBColors(
     var horizontalDividier by mutableStateOf(horizontalDividier)
         private set
     var statusBar by mutableStateOf(statusBar)
+        private set
+    var keyAvailaible by mutableStateOf(keyAvailaible)
+        private set
+    var keyToSpend by mutableStateOf(keyToSpend)
+        private set
+    var onKey by mutableStateOf(onKey)
         private set
     fun update(other : GuideOfNEBColors){
         background = other.background

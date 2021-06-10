@@ -1,5 +1,6 @@
 package com.rishadbaniya.guideofneb.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -10,7 +11,11 @@ import androidx.navigation.NavHostController
 
 val BOTTOM_NAVIGATION_BAR_HEIGHT = 48.dp
 
-class BottomNavigationItem(val label : Int, val icon : Int, val route : String);
+class BottomNavigationItem(
+    val label : Int,
+    val icons : List<Int>,
+    val route : String
+)
 
 @Composable
 fun BottomNavigationBar(
@@ -32,7 +37,6 @@ fun BannerAd(){
 
 }
 
-
 @Composable
 fun BottomNavigation(
     items: List<BottomNavigationItem>,
@@ -43,9 +47,10 @@ fun BottomNavigation(
         items.forEach{ item ->
             BottomNavigationItem(
                 modifier = Modifier.weight(1f),
-                onClick = { navController.navigate("${item.route}")},
-                icon = item.icon,
-                label = item.label
+                navController = navController,
+                icons = item.icons,
+                label = item.label,
+                route = item.route
             )
         }
     }
@@ -54,16 +59,23 @@ fun BottomNavigation(
 @Composable
 fun BottomNavigationItem(
     modifier : Modifier,
-    onClick : () -> Unit,
-    icon : Int,
+    navController: NavHostController,
+    icons : List<Int>,
     label : Int,
+    route : String
 ){
-    Column(modifier = modifier){
-        BottomNavigationIcon(icon = icon)
+    Column(
+        modifier = modifier.clickable(
+            onClick = {
+               navController.navigate(route)
+            }
+        )
+    ){
+        BottomNavigationIcon(icon = icons[0])
         BottomNavigationLabel(label = label)
     }
-
 }
+
 
 // Icon representing the bottom navigation
 @Composable
@@ -86,4 +98,3 @@ fun BottomNavigationLabel(
         contentDescription = null
     )
 }
-

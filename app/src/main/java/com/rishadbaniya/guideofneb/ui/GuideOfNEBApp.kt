@@ -8,11 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rishadbaniya.guideofneb.ui.components.BottomNavigationItem
 import com.rishadbaniya.guideofneb.ui.components.BottomNavigationBar
-import com.rishadbaniya.guideofneb.R;
 import com.rishadbaniya.guideofneb.ui.screens.tools.TOOLS
-import com.rishadbaniya.guideofneb.ui.screens.tools.Tool
 import com.rishadbaniya.guideofneb.ui.components.APP_BAR as AppBar
 
 @Composable

@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

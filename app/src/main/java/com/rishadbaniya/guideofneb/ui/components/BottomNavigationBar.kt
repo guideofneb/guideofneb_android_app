@@ -51,38 +51,40 @@ class BottomNavigationItem(
 @Composable
 fun BottomNavigationBar(
     navController : NavHostController,
-    showBannerAd : Boolean
+    routesToShowBottomNav : Array<String>
 ){
-    Column {
-        HoriziontalDivider()
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(BOTTOM_NAVIGATION_BAR_HEIGHT)
-            .background(GuideOfNEBTheme.colors.background)
-        ){
-            if(showBannerAd){
-                BannerAd()
-            }else{
-                BottomNavigation(navController = navController)
+    val navBackStackEntry by navController.currentBackStackEntryAsState();
+    val currentDestinaiton = navBackStackEntry?.destination?.route;
+    val showBottomNavigationBar = currentDestinaiton in routesToShowBottomNav;
+
+    if(showBottomNavigationBar){
+        Column {
+            HoriziontalDivider()
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(BOTTOM_NAVIGATION_BAR_HEIGHT)
+                .background(GuideOfNEBTheme.colors.background)
+            ){
+                    BottomNavigation(
+                        navController = navController,
+                        activeRoute = currentDestinaiton
+                    )
             }
         }
     }
-
 }
+
 
 @Composable
 fun HoriziontalDivider(){
     Divider(thickness = (1.2).dp,color = GuideOfNEBTheme.colors.horizontalDividier)
 }
 
-@Composable
-private fun BannerAd(){
-
-}
 
 @Composable
 private fun BottomNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    activeRoute : String?
 ){
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -93,7 +95,7 @@ private fun BottomNavigation(
             BottomNavigationItem(
                 modifier = Modifier.weight(1f),
                 navController = navController,
-                icons = item.icons,
+                icon = if(activeRoute == item.route) item.icons[1] else item.icons[0],
                 label = item.label,
                 route = item.route
             )
@@ -101,16 +103,15 @@ private fun BottomNavigation(
     }
 }
 
+
 @Composable
 private fun BottomNavigationItem(
     modifier : Modifier,
     navController: NavHostController,
-    icons : List<Int>,
+    icon : Int,
     label : String,
     route : String
 ){
-    val navBackStackEntry by navController.currentBackStackEntryAsState();
-    val currentDestinaiton = navBackStackEntry?.destination?.route;
     Column(
         modifier = modifier
             .fillMaxHeight()
@@ -136,7 +137,7 @@ private fun BottomNavigationItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        BottomNavigationIcon(if(currentDestinaiton == route) icons[1] else icons[0])
+        BottomNavigationIcon(icon)
         BottomNavigationLabel(label)
     }
 }

@@ -94,6 +94,11 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:$arch_version")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0-beta01")
+
+    //Compose runtime (It allows you to use .observeAsState() in livedata object)
+    implementation("androidx.compose.runtime:runtime:1.0.0-beta08")
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta08")
+
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")

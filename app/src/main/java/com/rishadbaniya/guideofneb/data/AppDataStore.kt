@@ -11,10 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
-class AppDataStore @Inject constructor(val appDataStore : DataStore<Preferences> ) : AppDataStoreInterface{
+class AppDataStore constructor(val appDataStore : DataStore<Preferences> ) : AppDataStoreInterface{
     object Keys {
         val THEME = stringPreferencesKey("THEME");
     }

@@ -25,3 +25,4 @@ const val APP_LOGO = R.drawable.logo
 const val HAMBURGER_MENU = R.drawable.menu_fill
 const val ADD = R.drawable.add
 const val KEY = R.drawable.key
+const val LEFT_ARROW = R.drawable.arrow_left

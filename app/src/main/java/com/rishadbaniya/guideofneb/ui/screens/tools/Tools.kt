@@ -18,8 +18,10 @@ import com.rishadbaniya.guideofneb.ui.components.NO_OF_KEYS
 import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
 @Composable
-fun TOOLS(){
-   Column {
+fun TOOLS(
+   modifier : Modifier
+){
+   Column (modifier){
       KEY_BAR()
       Column (
          Modifier

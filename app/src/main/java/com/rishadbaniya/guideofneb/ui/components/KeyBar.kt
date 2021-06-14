@@ -20,6 +20,8 @@ import com.rishadbaniya.guideofneb.ui.ADD
 import com.rishadbaniya.guideofneb.ui.KEY
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
+import com.rishadbaniya.guideofneb.viewmodels.LocalMainViewModel
+import com.rishadbaniya.guideofneb.viewmodels.MainViewModel
 
 
 private val KEYS_BAR_HEIGHT = 48.dp;
@@ -52,6 +54,7 @@ fun KEY_BAR(){
 
 @Composable
 private fun ADD_KEYS_BUTTON(){
+    val openAddMoreKeysDialog = LocalMainViewModel.current.openAddMoreKeysDialog;
     Icon(
         painter = painterResource(ADD),
         tint = GuideOfNEBTheme.colors.onBackground,
@@ -59,9 +62,7 @@ private fun ADD_KEYS_BUTTON(){
         modifier = Modifier
             .size(48.dp)
             .clickable(
-                onClick = {
-
-                },
+                onClick = openAddMoreKeysDialog,
                 indication = rememberRipple(bounded = false, radius = 24.dp),
                 interactionSource = MutableInteractionSource()
             )

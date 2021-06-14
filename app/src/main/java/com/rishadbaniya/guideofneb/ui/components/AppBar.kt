@@ -31,14 +31,14 @@ import com.rishadbaniya.guideofneb.viewmodels.LocalMainViewModel
 private val APP_BAR_HEIGHT = 48.dp
 
 /*
-    showLogo => If true then it shows "guideofneb" logo and if false then it shows back button
+  showLogo => If true then it shows "guideofneb" logo and if false then it shows back button
+  showDrawer => If true then it shows the hamburger to click and show drawer
  */
 @Composable
 fun APP_BAR(
     showDrawer : Boolean,
     showLogo : Boolean,
     navController: NavHostController,
-
 ){
 
     val openDrawer = LocalMainViewModel.current.openDrawer
@@ -104,7 +104,7 @@ private fun LOGO_AND_TEXT(){
             fontSize = 4.4.em,
             fontWeight = FontWeight.Bold,
             fontFamily = SOURCE_SAN_PRO,
-            color = GuideOfNEBTheme.colors.onBackground
+            color = GuideOfNEBTheme.colors.onBackgroundStrong
         )
     }
 }

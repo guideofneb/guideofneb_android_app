@@ -83,7 +83,6 @@ fun GuideOfNEBTheme(
             color = GuideOfNEBTheme.colors.statusBar,
             darkIcons = !GuideOfNEBTheme.colors.isDark
         )
-
         MaterialTheme(
             colors = debugMaterialColors(isDark = isDark),
             typography = Typography,

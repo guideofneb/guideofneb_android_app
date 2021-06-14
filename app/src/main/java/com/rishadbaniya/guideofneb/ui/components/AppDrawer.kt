@@ -2,12 +2,11 @@ package com.rishadbaniya.guideofneb.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.navigation.NavHostController
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
@@ -32,24 +31,21 @@ fun AppDrawer(
     })
     BoxWithConstraints() {
         Box(modifier = Modifier.fillMaxSize()){
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                content()
-            }
-        }
-        Box(modifier = Modifier.fillMaxSize()){
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                 ModalDrawer(
                     drawerContent = {
                         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-
                         }
                     },
                     drawerState = drawerState,
                     drawerBackgroundColor = GuideOfNEBTheme.colors.background,
                     gesturesEnabled = drawerState.isOpen
-
                 ) {
+                    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                        content()
+                    }
                 }
+
             }
         }
     }

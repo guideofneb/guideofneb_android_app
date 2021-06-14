@@ -20,15 +20,15 @@ fun AppDrawer(
 ){
     val scope = rememberCoroutineScope()
     var drawerState = rememberDrawerState(DrawerValue.Closed);
-    LocalMainViewModel.current.drawerActions.observeForever(Observer {
-        if(it != null){
-            if(it == DrawerValue.Open){
-                scope.launch {
-                    drawerState.open()
-                }
+    LocalMainViewModel.current.drawerActionsSubject.subscribe {
+        if (it != null) {
+            if (it == DrawerValue.Open){
+               scope.launch {
+                   drawerState.open()
+               }
             }
         }
-    })
+    }
     BoxWithConstraints() {
         Box(modifier = Modifier.fillMaxSize()){
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {

@@ -3,6 +3,7 @@ package com.rishadbaniya.guideofneb.viewmodels
 import androidx.compose.material.DrawerValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.lifecycle.*
+import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.launch
@@ -13,12 +14,11 @@ class MainViewModel constructor(
 
     val openDrawer : () -> Unit = {
         viewModelScope.launch {
-            drawerChannel.send(DrawerValue.Open)
+            drawerActionsSubject.onNext(DrawerValue.Open)
         }
     }
 
-    private val drawerChannel : BroadcastChannel<DrawerValue> = BroadcastChannel<DrawerValue>(1);
-    val drawerActions : LiveData<DrawerValue> = drawerChannel.asFlow().asLiveData()
+    val drawerActionsSubject : PublishSubject<DrawerValue> = PublishSubject.create()
 
 
 

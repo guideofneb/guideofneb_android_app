@@ -1,10 +1,12 @@
 package com.rishadbaniya.guideofneb.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +15,7 @@ import com.rishadbaniya.guideofneb.ui.components.BottomNavigationBar
 import com.rishadbaniya.guideofneb.ui.screens.SETTING
 import com.rishadbaniya.guideofneb.ui.screens.tools.TOOLS
 import com.rishadbaniya.guideofneb.ui.components.APP_BAR as AppBar
+import androidx.compose.ui.unit.dp;
 
 object ROUTES {
     const val HOME = "home"
@@ -40,22 +43,31 @@ fun GuideofNEBApp(
     navController: NavHostController
 ){
     AppDrawer(navController = navController) {
-        Column {
-            Body(modifier = Modifier.weight(1f), navController = navController)
-            BottomNavigationBar(
-                navController = navController,
-                routesToShowBottomNav = ROUTES_TO_SHOW_BOTTOM_NAV
-            )
-        }
+            Column() {
+                Box(modifier = Modifier.weight(1f).fillMaxSize()) {
+                    Body( navController = navController)
+                    FloatingActionButton(
+                        contentColor = Color(0xFF00003d),
+                        modifier = Modifier.align(Alignment.BottomEnd).offset(-12.dp,-12.dp),
+                        onClick = { /*TODO*/ },
+                    ){
+                        Text("YOY")
+                    }
+
+                }
+                BottomNavigationBar(
+                    navController = navController,
+                    routesToShowBottomNav = ROUTES_TO_SHOW_BOTTOM_NAV
+                )
+            }
     }
 }
 
 @Composable
 fun Body(
-    modifier : Modifier,
    navController : NavHostController
 ){
-    NavHost(navController = navController, startDestination = "home", modifier = modifier){
+    NavHost(navController = navController, startDestination = "home", modifier = Modifier.fillMaxSize()){
         composable("home"){
         }
         composable("notes"){

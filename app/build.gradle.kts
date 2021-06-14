@@ -99,6 +99,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.0.0-beta08")
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta08")
 
+    // Get RxJava 3.x
+    implementation ("io.reactivex.rxjava3:rxjava:3.0.13")
+
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")

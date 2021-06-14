@@ -14,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,9 +31,9 @@ import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBColors
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
-private val BOTTOM_NAVIGATION_BAR_HEIGHT = 50.dp
+private val BOTTOM_NAVIGATION_BAR_HEIGHT = 60.dp
 
-private val BOTTOM_NAVIGATION_LABEL_FONT_SIZE = (2.2).em ;
+private val BOTTOM_NAVIGATION_LABEL_FONT_SIZE = (2.4).em ;
 
 private val BOTTOM_NAVIGATION_ITEMS = listOf<BottomNavigationItem>(
     BottomNavigationItem(label = "Home" , icons = listOf(HOME_LINE, HOME_FILL), route = "home"),
@@ -93,6 +95,7 @@ private fun BottomNavigation(
     ){
         BOTTOM_NAVIGATION_ITEMS.forEach{ item ->
             BottomNavigationItem(
+                isSelected = activeRoute == item.route,
                 modifier = Modifier.weight(1f),
                 navController = navController,
                 icon = if(activeRoute == item.route) item.icons[1] else item.icons[0],
@@ -106,6 +109,7 @@ private fun BottomNavigation(
 
 @Composable
 private fun BottomNavigationItem(
+    isSelected : Boolean,
     modifier : Modifier,
     navController: NavHostController,
     icon : Int,
@@ -137,30 +141,38 @@ private fun BottomNavigationItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        BottomNavigationIcon(icon)
-        BottomNavigationLabel(label)
+        BottomNavigationIcon(
+            icon,
+            if(isSelected) GuideOfNEBTheme.colors.onBackgroundStrong else GuideOfNEBTheme.colors.onBackground
+        )
+        BottomNavigationLabel(
+           label = label ,
+           color = if(isSelected) GuideOfNEBTheme.colors.onBackgroundStrong else GuideOfNEBTheme.colors.onBackground
+        )
     }
 }
 
 @Composable
 private fun BottomNavigationIcon(
     icon : Int,
+    color : Color
 ){
     Icon(
-        modifier = Modifier.size(23.dp),
+        modifier = Modifier.size(24.dp),
       painter = painterResource(id = icon),
       contentDescription = null,
-      tint = GuideOfNEBTheme.colors.onBackground
+      tint = color
     )
 }
 
 @Composable
 private fun BottomNavigationLabel(
-    label : String
+    label : String,
+    color : Color
 ) = Text(
     modifier = Modifier.padding(top = (2).dp),
     text = label,
-    color = GuideOfNEBTheme.colors.onBackground,
+    color = color,
     fontSize = BOTTOM_NAVIGATION_LABEL_FONT_SIZE,
     fontFamily = SOURCE_SAN_PRO,
     fontWeight = FontWeight.Normal

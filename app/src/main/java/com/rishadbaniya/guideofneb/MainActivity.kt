@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setTheme(R.style.Theme_GuideOfNEB_NoActionBar)
         setContent {
             val navController = rememberNavController()
-            GuideOfNEBTheme{
+            GuideOfNEBTheme(isDark = false){
                 Surface(color = GuideOfNEBTheme.colors.background) {
                     CompositionLocalProvider(LocalMainViewModel provides mainViewModel) {
                         GuideofNEBApp(navController = navController)

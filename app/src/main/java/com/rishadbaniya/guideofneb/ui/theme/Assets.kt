@@ -26,3 +26,5 @@ const val HAMBURGER_MENU = R.drawable.menu_fill
 const val ADD = R.drawable.add
 const val KEY = R.drawable.key
 const val LEFT_ARROW = R.drawable.arrow_left
+const val MORE_VERT_DOT = R.drawable.more_vert
+const val DOWNLOAD = R.drawable.download

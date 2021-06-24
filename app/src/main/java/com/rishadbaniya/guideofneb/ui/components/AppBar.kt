@@ -21,9 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.rishadbaniya.guideofneb.ui.APP_LOGO
-import com.rishadbaniya.guideofneb.ui.HAMBURGER_MENU
-import com.rishadbaniya.guideofneb.ui.LEFT_ARROW
+import com.rishadbaniya.guideofneb.ui.*
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 import com.rishadbaniya.guideofneb.viewmodels.LocalMainViewModel
@@ -50,7 +48,6 @@ fun APP_BAR(
         Row (
             modifier = Modifier
                 .height(APP_BAR_HEIGHT)
-                .padding(start = 12.dp)
                 .fillMaxWidth()
                 .clipToBounds(),
             verticalAlignment = Alignment.CenterVertically,
@@ -61,6 +58,7 @@ fun APP_BAR(
             }else{
                 BACK_BUTTON(onClick = goBack)
             }
+
             if(showDrawer){
                 HAMBURGER_DRAWER_BUTTON(onClick = {
                     openDrawer()
@@ -68,18 +66,21 @@ fun APP_BAR(
             }
 
         }
-        HoriziontalDivider()
     }
 }
 
 @Composable
-private fun BACK_BUTTON(
+fun BACK_BUTTON(
     onClick: () -> Unit
 ){
     Icon(
         modifier = Modifier
             .size(48.dp)
-            .clickable(onClick = onClick)
+            .clickable(
+                interactionSource = MutableInteractionSource(),
+                indication = rememberRipple(bounded = false,radius = 24.dp),
+                onClick = onClick
+            )
             .padding(12.dp)
         ,
         painter = painterResource(LEFT_ARROW),
@@ -129,7 +130,39 @@ private fun HAMBURGER_DRAWER_BUTTON(
 }
 
 @Composable
-private fun MORE_MENU_BUTTON(
+fun MORE_MENU_BUTTON(
+    onClick: () -> Unit
 ){
+    Icon(
+        modifier = Modifier
+            .size(48.dp)
+            .clickable(
+                interactionSource = MutableInteractionSource(),
+                indication = rememberRipple(bounded = false,radius = 24.dp),
+                onClick = onClick
+            )
+            .padding(12.dp)
+        ,
+        painter = painterResource(MORE_VERT_DOT),
+        contentDescription = null
+    )
+}
 
+@Composable
+fun DOWNLOAD_BUTTON(
+    onClick: () -> Unit
+){
+    Icon(
+        modifier = Modifier
+            .size(48.dp)
+            .clickable(
+                interactionSource = MutableInteractionSource(),
+                indication = rememberRipple(bounded = false,radius = 24.dp),
+                onClick = onClick
+            )
+            .padding(12.dp)
+        ,
+        painter = painterResource(DOWNLOAD),
+        contentDescription = null
+    )
 }

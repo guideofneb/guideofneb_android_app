@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
 import com.rishadbaniya.guideofneb.ui.components.KEY_BAR
 import com.rishadbaniya.guideofneb.ui.components.KEY_STATUS
 import com.rishadbaniya.guideofneb.ui.components.NO_OF_KEYS
@@ -21,7 +25,8 @@ import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 
 @Composable
 fun TOOLS(
-   modifier : Modifier
+   modifier : Modifier,
+   navController: NavHostController,
 ){
    Column (modifier){
       KEY_BAR()
@@ -30,6 +35,11 @@ fun TOOLS(
             .verticalScroll(rememberScrollState())
             .padding(12.dp)
       ){
+         Button(onClick = {
+               navController.navigate("/tools/toolDetail/renderedSolution")
+         }) {
+           Text("aslfjaslfjlasdj")
+         }
          TOOL()
       }
    }

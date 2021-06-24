@@ -1,6 +1,7 @@
 package com.rishadbaniya.guideofneb.ui
 
 import android.util.Log
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -21,7 +22,9 @@ import androidx.compose.ui.unit.dp;
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.Observer
+import androidx.navigation.navigation
 import com.rishadbaniya.guideofneb.R;
+import com.rishadbaniya.guideofneb.ui.screens.tools.toolDetail.RenderedSolution
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.viewmodels.LocalMainViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -45,10 +48,12 @@ private val ROUTES_TO_SHOW_BOTTOM_NAV = arrayOf(
     ROUTES.SOLUTIONS,
     ROUTES.TOOLS,
     ROUTES.NEWS,
-    ROUTES.LIBRARY
+    ROUTES.LIBRARY,
+    "/tools/"
 );
 
 
+@ExperimentalAnimationApi
 @Composable
 fun GuideofNEBApp(
     navController: NavHostController
@@ -97,35 +102,50 @@ fun AddMoreKeysDialog(){
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun Body(
    navController : NavHostController
-){
-    NavHost(navController = navController, startDestination = "home", modifier = Modifier.fillMaxSize()){
-        composable("home"){
+) {
+    NavHost(
+        navController = navController,
+        startDestination = "home",
+        modifier = Modifier.fillMaxSize()
+    ) {
+        composable("home") {
         }
-        composable("notes"){
+        composable("notes") {
         }
-        composable("solutions"){
+        composable("solutions") {
         }
-        composable("tools"){
-           Column{
-               AppBar(
-                   showLogo = true,
-                   navController = navController,
-                   showDrawer = true
-               )
-               TOOLS(modifier = Modifier.weight(1f))
-           }
-        }
+        navigation(route = "/tools", startDestination = "/tools/",) {
+            composable(route = "/tools/") {
+                Column {
+                    AppBar(
+                        showLogo = true,
+                        navController = navController,
+                        showDrawer = true
+                    )
+                    TOOLS(
+                        modifier = Modifier.weight(1f),
+                        navController = navController
+                    )
+                }
+            }
 
-        composable("news"){
-        }
-        composable(ROUTES.LIBRARY){
+            navigation(route = "/tools/toolDetail", startDestination = "/tools/toolDetail/") {
+                composable(route = "/tools/showToolDetail/") {}
+                composable(route = "/tools/toolDetail/renderedSolution") { RenderedSolution(navController = navController) }
+            }
 
-        }
-        composable(ROUTES.SETTINGS){
-            SETTING(navController = navController)
+            composable("news") {
+            }
+            composable(ROUTES.LIBRARY) {
+
+            }
+            composable(ROUTES.SETTINGS) {
+                SETTING(navController = navController)
+            }
         }
     }
 }

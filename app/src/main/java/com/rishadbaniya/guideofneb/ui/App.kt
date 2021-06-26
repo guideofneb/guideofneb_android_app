@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp;
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.Observer
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navigation
 import com.rishadbaniya.guideofneb.R;
 import com.rishadbaniya.guideofneb.ui.screens.tools.toolDetail.RenderedSolution
@@ -53,6 +54,7 @@ private val ROUTES_TO_SHOW_BOTTOM_NAV = arrayOf(
 );
 
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun GuideofNEBApp(
@@ -102,11 +104,13 @@ fun AddMoreKeysDialog(){
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun Body(
    navController : NavHostController
 ) {
+    val navStacController by navController.currentBackStackEntryAsState()
     NavHost(
         navController = navController,
         startDestination = "home",
@@ -135,13 +139,14 @@ fun Body(
 
             navigation(route = "/tools/toolDetail", startDestination = "/tools/toolDetail/") {
                 composable(route = "/tools/showToolDetail/") {}
-                composable(route = "/tools/toolDetail/renderedSolution") { RenderedSolution(navController = navController) }
+                composable(route = "/tools/toolDetail/renderedSolution") {
+                        RenderedSolution(navController = navController)
+                }
             }
 
             composable("news") {
             }
             composable(ROUTES.LIBRARY) {
-
             }
             composable(ROUTES.SETTINGS) {
                 SETTING(navController = navController)

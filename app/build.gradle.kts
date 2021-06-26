@@ -58,7 +58,7 @@ dependencies {
     implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.0-beta01")
+    implementation("androidx.activity:activity-compose:1.3.0-beta02")
     implementation("com.google.dagger:hilt-android:2.37")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.12.0")
     kapt("com.google.dagger:hilt-android-compiler:2.37")

@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,9 +26,13 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.rishadbaniya.guideofneb.ui.components.BACK_BUTTON
 import com.rishadbaniya.guideofneb.ui.components.DOWNLOAD_BUTTON
 import com.rishadbaniya.guideofneb.ui.components.MORE_MENU_BUTTON
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
 import androidx.compose.ui.unit.dp as dp
@@ -38,43 +43,54 @@ import androidx.compose.ui.unit.dp as dp
 fun RenderedSolution(
     navController : NavHostController
 ){
-    val scope = rememberCoroutineScope()
-    val bottomDrawerState = rememberBottomDrawerState(initialValue = BottomDrawerValue.Closed)
+    var isMoreExpanded by remember{mutableStateOf(false)}
     val onBackClick : () -> Unit = { navController.popBackStack() }
     val onMoreClick : () -> Unit = {
-        scope.launch {
-            bottomDrawerState.open()
-        }
+        isMoreExpanded = true
     }
     val onDownloadClick : () -> Unit = {}
-        BottomDrawer(
-            gesturesEnabled = false,
-            drawerContent = {
-                   Text("YOYOYO")
-            },
-            drawerState = bottomDrawerState
-        ) {
-            Column() {
-                APP_BAR(
-                    onBackClick = onBackClick,
-                    onMoreClick = onMoreClick,
-                    onDownloadClick = onDownloadClick
-                )
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState())
-                ) {
-                    QUESTION()
-                    SOLUTION()
+            Column {
+                APP_BAR(onBackClick = onBackClick, onMoreClick = onMoreClick, onDownloadClick = onDownloadClick)
+                DropdownMenu(
+                    expanded = isMoreExpanded,
+                    onDismissRequest = { isMoreExpanded = false }
+                ){
+                    DropdownMenuItem(onClick = { /*TODO*/ }){
+                        Text("YOYO")
+                    }
                 }
-
+                QUESTION_ANSWER(modifier = Modifier.weight(1f))
+                BANNER_AD()
             }
-        }
 }
 
+@Composable
+private fun QUESTION_ANSWER(
+    modifier : Modifier
+){
+    Column(modifier = modifier.verticalScroll(rememberScrollState())){
+        QUESTION()
+        SOLUTION()
+    }
+}
 
 @Composable
-private fun BANNER_AD(){
-
+private fun BANNER_AD() {
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(Color.White)
+        ,
+        factory = {
+             context -> AdView(context).apply {
+                 adSize = AdSize.BANNER
+                 adUnitId = "ca-app-pub-3940256099942544/6300978111";
+                 val adRequest = AdRequest.Builder().build()
+                 loadAd(adRequest)
+            }
+        }
+    )
 }
 
 @Composable
@@ -128,7 +144,7 @@ private fun SOLUTION(){
         AndroidView(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(500.dp),
+                .height(400.dp),
             factory = {
                     context -> QuestionAndAnswerWebView(context).apply {
                 webViewClient = WebViewClient()

@@ -9,6 +9,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.ads.MobileAds
 import com.rishadbaniya.guideofneb.ui.theme.GuideOfNEBTheme
 import com.rishadbaniya.guideofneb.ui.GuideofNEBApp
 import com.rishadbaniya.guideofneb.viewmodels.LocalMainViewModel
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        MobileAds.initialize(this)
     }
 }
 

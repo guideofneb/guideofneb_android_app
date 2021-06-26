@@ -66,19 +66,19 @@ fun GuideofNEBApp(
                      .weight(1f)
                      .fillMaxSize()) {
                      Body( navController = navController)
-                     FloatingActionButton(
-                         modifier = Modifier
-                             .align(Alignment.BottomEnd)
-                             .offset(-12.dp, -12.dp),
-                         onClick = { /*TODO*/ },
-                         backgroundColor = GuideOfNEBTheme.colors.keyToSpend
-                     ){
-                         Icon(
-                             painterResource(id = R.drawable.ic_baseline_search_24),
-                             contentDescription = null,
-                             tint = Color.White
-                         )
-                     }
+//                     FloatingActionButton(
+//                         modifier = Modifier
+//                             .align(Alignment.BottomEnd)
+//                             .offset(-12.dp, -12.dp),
+//                         onClick = { /*TODO*/ },
+//                         backgroundColor = GuideOfNEBTheme.colors.keyToSpend
+//                     ){
+//                         Icon(
+//                             painterResource(id = R.drawable.ic_baseline_search_24),
+//                             contentDescription = null,
+//                             tint = Color.White
+//                         )
+//                     }
                  }
                  BottomNavigationBar(
                      navController = navController,
@@ -136,12 +136,9 @@ fun Body(
                     )
                 }
             }
-
             navigation(route = "/tools/toolDetail", startDestination = "/tools/toolDetail/") {
                 composable(route = "/tools/showToolDetail/") {}
-                composable(route = "/tools/toolDetail/renderedSolution") {
-                        RenderedSolution(navController = navController)
-                }
+                composable(route = "/tools/toolDetail/renderedSolution") { RenderedSolution(navController = navController) }
             }
 
             composable("news") {

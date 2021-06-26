@@ -137,7 +137,7 @@ fun Body(
                 }
             }
             navigation(route = "/tools/toolDetail", startDestination = "/tools/toolDetail/") {
-                composable(route = "/tools/showToolDetail/") {}
+                composable(route = "/tools/showToolDetail/") { Text("YOYO") }
                 composable(route = "/tools/toolDetail/renderedSolution") { RenderedSolution(navController = navController) }
             }
 

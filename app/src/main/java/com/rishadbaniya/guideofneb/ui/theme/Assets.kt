@@ -28,3 +28,4 @@ const val KEY = R.drawable.key
 const val LEFT_ARROW = R.drawable.arrow_left
 const val MORE_VERT_DOT = R.drawable.more_vert
 const val DOWNLOAD = R.drawable.download
+const val FLAG = R.drawable.flag

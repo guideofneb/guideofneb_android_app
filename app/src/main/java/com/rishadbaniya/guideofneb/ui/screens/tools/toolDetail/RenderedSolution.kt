@@ -9,18 +9,19 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Space
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.viewinterop.AndroidView
@@ -29,9 +30,12 @@ import androidx.navigation.NavHostController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.rishadbaniya.guideofneb.ui.DOWNLOAD
+import com.rishadbaniya.guideofneb.ui.FLAG
 import com.rishadbaniya.guideofneb.ui.components.BACK_BUTTON
 import com.rishadbaniya.guideofneb.ui.components.DOWNLOAD_BUTTON
 import com.rishadbaniya.guideofneb.ui.components.MORE_MENU_BUTTON
+import com.rishadbaniya.guideofneb.ui.theme.SOURCE_SAN_PRO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
@@ -43,25 +47,86 @@ import androidx.compose.ui.unit.dp as dp
 fun RenderedSolution(
     navController : NavHostController
 ){
-    var isMoreExpanded by remember{mutableStateOf(false)}
-    val onBackClick : () -> Unit = { navController.popBackStack() }
-    val onMoreClick : () -> Unit = {
-        isMoreExpanded = true
+    val scope = rememberCoroutineScope()
+    val bottomDrawerState = rememberBottomDrawerState(initialValue = BottomDrawerValue.Closed)
+    val onBackClick : () -> Unit = {
+        scope.launch {
+            navController.popBackStack()
+        }
     }
-    val onDownloadClick : () -> Unit = {}
+
+    val onMoreClick : () -> Unit = {
+        scope.launch {
+           bottomDrawerState.open()
+        }
+    }
+
+    val onDownloadClick : () -> Unit = {
+
+    }
+        BOTTOM_DRAWER(bottomDrawerState = bottomDrawerState) {
             Column {
                 APP_BAR(onBackClick = onBackClick, onMoreClick = onMoreClick, onDownloadClick = onDownloadClick)
-                DropdownMenu(
-                    expanded = isMoreExpanded,
-                    onDismissRequest = { isMoreExpanded = false }
-                ){
-                    DropdownMenuItem(onClick = { /*TODO*/ }){
-                        Text("YOYO")
-                    }
-                }
                 QUESTION_ANSWER(modifier = Modifier.weight(1f))
                 BANNER_AD()
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun BOTTOM_DRAWER(
+    bottomDrawerState : BottomDrawerState,
+    content : @Composable () -> Unit
+){
+    val scope = rememberCoroutineScope()
+    val closeDrawer : () -> Unit = {
+        scope.launch { bottomDrawerState.close() }
+    }
+    BottomDrawer(
+        drawerContent = {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)){
+                Column() {
+                    BOTTOM_DRAWER_ITEM(icon = FLAG, label = "Report",onClick = closeDrawer )
+                    BOTTOM_DRAWER_ITEM(icon = DOWNLOAD, label = "Download for offline use" , onClick = closeDrawer)
+                }
+
             }
+        },
+        drawerState = bottomDrawerState,
+        gesturesEnabled = bottomDrawerState.isOpen,
+        content = content
+    )
+}
+
+@Composable
+private fun BOTTOM_DRAWER_ITEM(
+    icon : Int,
+    label : String,
+    onClick: () -> Unit
+){
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { }){
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(12.dp)
+        ){
+            Icon(
+                painter = painterResource(DOWNLOAD),
+                contentDescription = null,
+                tint = Color.Black
+            )
+            Text(
+                modifier = Modifier.padding(start = 24.dp),
+                text = "Download for offline use",
+                color = Color.Black,
+                fontFamily = SOURCE_SAN_PRO
+            )
+        }
+    }
 }
 
 @Composable
@@ -83,12 +148,12 @@ private fun BANNER_AD() {
             .background(Color.White)
         ,
         factory = {
-             context -> AdView(context).apply {
-                 adSize = AdSize.BANNER
-                 adUnitId = "ca-app-pub-3940256099942544/6300978111";
-                 val adRequest = AdRequest.Builder().build()
-                 loadAd(adRequest)
-            }
+                context -> AdView(context).apply {
+            adSize = AdSize.BANNER
+            adUnitId = "ca-app-pub-3940256099942544/6300978111";
+            val adRequest = AdRequest.Builder().build()
+            loadAd(adRequest)
+        }
         }
     )
 }
